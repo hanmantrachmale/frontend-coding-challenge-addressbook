@@ -1,0 +1,79 @@
+.summary {
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+// On narrow screens the table scrolls sideways inside this region instead of squashing columns.
+// It is focusable so keyboard users can scroll it too (WCAG 2.1.1).
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.employee-list {
+  width: 100%;
+  min-width: 40rem;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  thead th {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    white-space: nowrap;
+    background: var(--color-surface-muted);
+  }
+
+  tbody th {
+    font-weight: 600;
+  }
+
+  tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  tbody tr:hover {
+    background: var(--color-surface-muted);
+  }
+}
+
+// Header-styled sort control: looks like a column title, behaves like a button.
+.sort-button {
+  min-height: 0;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+
+  &:hover {
+    color: var(--color-primary);
+    background: none;
+    text-decoration: underline;
+  }
+}
+
+.actions {
+  width: 1%;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.confirm {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+.empty {
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  color: var(--color-text-muted);
+}

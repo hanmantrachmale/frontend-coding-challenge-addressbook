@@ -1,0 +1,31 @@
+<h1>Employees</h1>
+
+<section class="panel" id="add-employee" aria-labelledby="add-employee-heading">
+  <h2 id="add-employee-heading">Add employee</h2>
+
+  @if (addError()) {
+    <p class="alert" role="alert">{{ addError() }}</p>
+  }
+  <p class="status" role="status">{{ addStatus() }}</p>
+
+  <app-employee-form (submitted)="onAdd($event)" (cancelled)="onCancelAdd()" />
+</section>
+
+<section class="panel" aria-labelledby="directory-heading">
+  <h2 id="directory-heading">Employee directory</h2>
+
+  <app-search-panel
+    [name]="nameQuery()"
+    (nameChange)="onNameChange($event)"
+    [department]="departmentQuery()"
+    (departmentChange)="onDepartmentChange($event)"
+  />
+
+  <app-employee-list
+    [employees]="employees()"
+    [totalCount]="totalCount()"
+    [sort]="sortDirection()"
+    (sortChange)="onSortChange($event)"
+    (delete)="onDelete($event)"
+  />
+</section>

@@ -1,0 +1,80 @@
+<p #summary class="summary" tabindex="-1" aria-live="polite" aria-atomic="true">
+  Showing {{ employees().length }} of {{ totalCount() }} employees
+</p>
+<p class="visually-hidden" role="status">{{ statusMessage() }}</p>
+
+<div class="table-scroll" role="region" aria-label="Employee table" tabindex="0">
+  <table class="employee-list">
+    <caption class="visually-hidden">
+      Employees, sorted by last name
+      {{
+        sort() === 'asc' ? 'A to Z' : 'Z to A'
+      }}
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">First name</th>
+        <th scope="col" [attr.aria-sort]="ariaSort()">
+          <button class="sort-button" type="button" (click)="toggleSort()">
+            Last name
+            <span aria-hidden="true">{{ sort() === 'asc' ? '▲' : '▼' }}</span>
+          </button>
+        </th>
+        <th scope="col">Department</th>
+        <th scope="col">Phone number</th>
+        <th scope="col"><span class="visually-hidden">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (employee of employees(); track employee.id) {
+        @let name = fullName(employee);
+        <tr>
+          <th scope="row">{{ employee.firstName }}</th>
+          <td>{{ employee.lastName }}</td>
+          <td>{{ employee.department }}</td>
+          <td>{{ employee.phoneNumber }}</td>
+          <td class="actions">
+            @if (pendingDeleteId() === employee.id) {
+              <span class="confirm" (keydown.escape)="cancelDelete(employee)">
+                <button
+                  #confirmButton
+                  class="button-danger button-small"
+                  type="button"
+                  [attr.aria-label]="'Confirm delete ' + name"
+                  (click)="confirmDelete(employee)"
+                >
+                  Confirm
+                </button>
+                <button
+                  class="button-small"
+                  type="button"
+                  [attr.aria-label]="'Cancel delete ' + name"
+                  (click)="cancelDelete(employee)"
+                >
+                  Cancel
+                </button>
+              </span>
+            } @else {
+              <button
+                #deleteButton
+                class="button-small"
+                type="button"
+                [attr.data-employee-id]="employee.id"
+                [attr.aria-label]="'Delete ' + name"
+                (click)="requestDelete(employee)"
+              >
+                Delete
+              </button>
+            }
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td class="empty" colspan="5">
+            {{ totalCount() === 0 ? 'No employees yet.' : 'No employees match your search.' }}
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

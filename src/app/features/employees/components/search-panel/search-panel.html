@@ -1,0 +1,37 @@
+<form class="search-panel" role="search" aria-label="Search employees" (submit)="onSubmit($event)">
+  <div class="field">
+    <label for="search-name">Name</label>
+    <p class="hint" id="search-name-hint">First name, last name or full name.</p>
+    <input
+      #nameInput
+      id="search-name"
+      name="name"
+      type="search"
+      autocomplete="off"
+      spellcheck="false"
+      aria-describedby="search-name-hint"
+      [value]="name()"
+      (input)="name.set(nameInput.value)"
+    />
+  </div>
+
+  <div class="field">
+    <label for="search-department">Department</label>
+    <p class="hint" id="search-department-hint">Any part of the department name.</p>
+    <input
+      #departmentInput
+      id="search-department"
+      name="department"
+      type="search"
+      autocomplete="off"
+      spellcheck="false"
+      aria-describedby="search-department-hint"
+      [value]="department()"
+      (input)="department.set(departmentInput.value)"
+    />
+  </div>
+
+  @if (isActive()) {
+    <button class="clear" type="button" (click)="clear()">Clear search</button>
+  }
+</form>
